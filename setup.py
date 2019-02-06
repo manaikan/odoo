@@ -1,9 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Setup
+-----
 
+To setup a development installation one may call either pip as 
+follows
+::
+   pip install -e .
+
+or execute the setup script directly 
+::
+   python setup.py develop
+
+The pip version is generally preferred.
+"""
 from setuptools import find_packages, setup
 from os.path import join, dirname
-
 
 exec(open(join(dirname(__file__), 'odoo', 'release.py'), 'rb').read())  # Load release variables
 lib_name = 'odoo'
@@ -19,6 +32,9 @@ setup(
     classifiers=[c for c in classifiers.split('\n') if c],
     license=license,
     scripts=['setup/odoo'],
+    entry_points         = {
+     "console_scripts":["odoo=odoo.__main__:odoo.cli.bin"],
+     },
     packages=find_packages(),
     package_dir={'%s' % lib_name: 'odoo'},
     include_package_data=True,
